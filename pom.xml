@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.openphacts.data</groupId>
+  <artifactId>ops-rsc-wikipathways-dataset</artifactId>
+  <version>20150925-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <name>OpenPhacts RSC WikiPathways dataset</name>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
+
+  <licenses>
+    <license>
+      <name>Creative Commons Attribution-ShareAlike 3.0 Unported</name>
+      <url>http://creativecommons.org/licenses/by-sa/3.0/</url>
+    </license>
+  </licenses>
+
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>wagon-maven-plugin</artifactId>
+        <version>1.0</version>
+        <executions>
+          <execution>
+            <id>download-rdf</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>download</goal>
+            </goals>
+            <configuration>
+              <includes>*.ttl.gz</includes>
+              <url>ftp://ops@ftp.rsc-us.org/OPS_TEST/20150925/WIKIPATHWAYS/</url>
+              <toDir>${project.build.outputDirectory}/data/${project.artifactId}</toDir>
+            </configuration>
+          </execution>
+          <execution>
+            <id>download-void</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>download-single</goal>
+            </goals>
+            <configuration>
+              <url>ftp://ops@ftp.rsc-us.org/OPS_TEST/20150925/</url>
+              <fromFile>void_2015-09-25.ttl</fromFile>
+              <toDir>${project.build.outputDirectory}/data/${project.artifactId}/void.ttl</toDir>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <repositories>
+    <repository>
+      <id>ops</id>
+      <name>Open PHACTS repository</name>
+      <url>http://repository.mygrid.org.uk/artifactory/ops/</url>
+      <releases />
+      <snapshots />
+    </repository>
+  </repositories>
+
+  <distributionManagement>
+    <repository>
+      <id>ops</id>
+      <name>Open PHACTS repository</name>
+      <url>http://repository.mygrid.org.uk/artifactory/ops/</url>
+    </repository>
+    <snapshotRepository>
+      <id>ops</id>
+      <name>Open PHACTS repository</name>
+      <url>http://repository.mygrid.org.uk/artifactory/ops/</url>
+    </snapshotRepository>
+  </distributionManagement>
+</project>
